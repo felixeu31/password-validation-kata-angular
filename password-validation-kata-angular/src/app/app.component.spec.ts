@@ -1,27 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { render } from '@testing-library/angular';
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
-describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
-  }));
-
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+function buildComponent() {
+  return render(AppComponent, {
+    imports: [ReactiveFormsModule]
   });
+}
 
-  it(`should have as title 'password-validation-kata-angular'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('password-validation-kata-angular');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('password-validation-kata-angular app is running!');
+describe('Password validation kata', () => {
+  it('should render password input', async () => {
+    const { getByPlaceholderText } = await buildComponent();
+    expect(getByPlaceholderText('Password')).toBeInTheDocument();
   });
 });
