@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'password-validation-kata-angular';
+
+  form = this.formBuilder.group({
+    password: ['', []]
+  });
+
+  constructor(private formBuilder: FormBuilder) {
+    
+  }
 }
