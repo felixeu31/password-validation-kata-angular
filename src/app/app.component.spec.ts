@@ -26,7 +26,7 @@ describe('Password validation kata', () => {
 
     await userEvent.type(getByPlaceholderText('Password'), '1');
     fireEvent.click(getByText('Save'));
-
+    
     expect(getByText('Password should not be shorter than 8 characters')).toBeInTheDocument();
   });
 });
