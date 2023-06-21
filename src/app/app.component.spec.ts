@@ -21,12 +21,30 @@ describe('Password validation kata', () => {
     expect(getByText('Save')).toBeInTheDocument();
   });
 
-  it('should print error message when password is shorter than 8 characters', async () => {
+  it.each([
+    '1',
+    '12',
+    '123',
+    '1234',
+    '12345',
+    '123456',
+    '1234567'
+  ])('should print error message when password is shorter than 8 characters (%s)', async (password: string) => {
     const { getByText, getByPlaceholderText } = await buildComponent();
 
-    await userEvent.type(getByPlaceholderText('Password'), '1');
+    await userEvent.type(getByPlaceholderText('Password'), password);
     fireEvent.click(getByText('Save'));
-    
+
     expect(getByText('Password should not be shorter than 8 characters')).toBeInTheDocument();
   });
+
+  it('should not print error message when password greater or equal than 8', async () => {
+    const { getByText, getByPlaceholderText } = await buildComponent();
+
+    await userEvent.type(getByPlaceholderText('Password'), '12345678');
+    fireEvent.click(getByText('Save'));
+
+    expect(getByText('Password should not be shorter than 8 characters')).not.toBeInTheDocument();
+  });
+
 });
