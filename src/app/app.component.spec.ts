@@ -3,6 +3,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import '@testing-library/jest-dom'
 import  userEvent  from '@testing-library/user-event'
+import { waitFor } from '@testing-library/dom';
 
 function buildComponent() {
   return render(AppComponent, {
@@ -39,12 +40,14 @@ describe('Password validation kata', () => {
   });
 
   it('should not print error message when password greater or equal than 8', async () => {
-    const { getByText, getByPlaceholderText } = await buildComponent();
+    const { getByText, getByPlaceholderText, queryByText } = await buildComponent();
 
     await userEvent.type(getByPlaceholderText('Password'), '12345678');
     fireEvent.click(getByText('Save'));
 
-    expect(getByText('Password should not be shorter than 8 characters')).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(queryByText('Password should not be shorter than 8 characters')).not.toBeInTheDocument();
+    });
   });
 
 });

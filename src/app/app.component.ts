@@ -13,7 +13,17 @@ export class AppComponent {
     password: ['', []]
   });
 
+  error = '';
+
   constructor(private formBuilder: FormBuilder) {
     
+  }
+
+  validatePassword(){
+    const password = this.form.value.password;
+
+    if(!password || password.length < 8){
+      this.error = 'Password should not be shorter than 8 characters';
+    }
   }
 }
