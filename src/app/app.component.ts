@@ -14,7 +14,7 @@ export class AppComponent {
   });
 
   errors: string[] = [];
-  validPassword: string | null | undefined = '';
+  validPasswords: any[] = [];
 
   constructor(private formBuilder: FormBuilder) {
     
@@ -32,6 +32,8 @@ export class AppComponent {
       this.errors.push('Password should contain at least one CAP');
     }
 
-    this.validPassword = password;
+    this.validPasswords.push(password);
+    
+    this.form.reset();
   }
 }

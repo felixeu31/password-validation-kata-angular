@@ -3,4 +3,4 @@
     <button type="submit">Save</button>
 </form>
 <p *ngFor="let error of errors">{{ error }}</p>
-<p>{{ validPassword }}</p>
+<p *ngFor="let validPassword of validPasswords">{{ validPassword }}</p>
