@@ -13,22 +13,22 @@ export class AppComponent {
     password: ['', []]
   });
 
-  error = '';
-  capError = '';
+  errors: string[] = [];
 
   constructor(private formBuilder: FormBuilder) {
     
   }
 
   validatePassword(){
+    this.errors = [];
     const password = this.form.value.password;
 
     if(!password || password.length < 8){
-      this.error = 'Password should not be shorter than 8 characters';
+      this.errors.push('Password should not be shorter than 8 characters');
     }
     const regex = /[A-Z]/;
     if(password && !regex.test(password)){
-      this.capError = 'Password should contain at least one CAP';
+      this.errors.push('Password should contain at least one CAP');
     }
   }
 }

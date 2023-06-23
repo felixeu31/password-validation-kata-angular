@@ -2,5 +2,4 @@
     <input type="text" placeholder="Password" formControlName="password"/>
     <button type="submit">Save</button>
 </form>
-<p>{{ error }}</p>
-<p>{{ capError }}</p>
+<p *ngFor="let error of errors">{{ error }}</p>
