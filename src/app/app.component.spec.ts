@@ -98,4 +98,17 @@ describe('Password validation kata', () => {
     });
   });
 
+  
+  it('should not print password when is not valid', async () => {
+    const { getByText, queryByText, getByPlaceholderText } = await buildComponent();
+
+    const newPassword = 'invalid';
+    await userEvent.type(getByPlaceholderText('Password'), newPassword);
+    fireEvent.click(getByText('Save'));
+
+    await waitFor(() => {
+      expect(queryByText(newPassword)).not.toBeInTheDocument();
+    });
+  });
+
 });
