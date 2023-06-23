@@ -22,21 +22,33 @@ export class AppComponent {
   }
 
   validatePassword(){
-    this.errors = [];
     const password = this.form.value.password;
+    
+    this.errors = [];
+    this.addErrorIfPasswordIsTooShort(password);    
+    this.addErrorIfPasswordDoesNotContainCaps(password);
 
-    if(!password || password.length < 8){
-      this.errors.push('Password should not be shorter than 8 characters');
-    }
-    const regex = /[A-Z]/;
-    if(password && !regex.test(password)){
-      this.errors.push('Password should contain at least one CAP');
-    }
+    this.printPasswordIfIsValid(password);
 
+    this.form.reset();
+  }
+
+  private printPasswordIfIsValid(password: string | null | undefined) {
     if (this.errors.length === 0) {
       this.validPasswords.push(password);
     }
+  }
 
-    this.form.reset();
+  private addErrorIfPasswordDoesNotContainCaps(password: string | null | undefined) {
+    const regex = /[A-Z]/;
+    if (password && !regex.test(password)) {
+      this.errors.push('Password should contain at least one CAP');
+    }
+  }
+
+  private addErrorIfPasswordIsTooShort(password: string | null | undefined) {
+    if (!password || password.length < 8) {
+      this.errors.push('Password should not be shorter than 8 characters');
+    }
   }
 }
