@@ -81,4 +81,21 @@ describe('Password validation kata', () => {
     });
   });
 
+  
+  it('should print a list of valid passwords', async () => {
+    const { getByText, queryByText, getByPlaceholderText } = await buildComponent();
+
+    const newPassword1 = '12345678A1';
+    const newPassword2 = '12345678A2';
+    await userEvent.type(getByPlaceholderText('Password'), newPassword1);
+    fireEvent.click(getByText('Save'));
+    await userEvent.type(getByPlaceholderText('Password'), newPassword2);
+    fireEvent.click(getByText('Save'));
+
+    await waitFor(() => {
+      expect(queryByText(newPassword1)).toBeInTheDocument();
+      expect(queryByText(newPassword2)).toBeInTheDocument();
+    });
+  });
+
 });
