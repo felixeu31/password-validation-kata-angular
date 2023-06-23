@@ -59,4 +59,13 @@ describe('Password validation kata', () => {
     expect(queryByText('Password should contain at least one CAP')).toBeInTheDocument();
   });
 
+  it('should not print error message when password have CAP', async () => {
+    const { getByText, queryByText, getByPlaceholderText } = await buildComponent();
+
+    await userEvent.type(getByPlaceholderText('Password'), '12345678A');
+    fireEvent.click(getByText('Save'));
+
+    expect(queryByText('Password should contain at least one CAP')).not.toBeInTheDocument();
+  });
+
 });
