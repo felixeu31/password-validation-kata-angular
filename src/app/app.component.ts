@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
@@ -32,8 +33,10 @@ export class AppComponent {
       this.errors.push('Password should contain at least one CAP');
     }
 
-    this.validPasswords.push(password);
-    
+    if (this.errors.length === 0) {
+      this.validPasswords.push(password);
+    }
+
     this.form.reset();
   }
 }
