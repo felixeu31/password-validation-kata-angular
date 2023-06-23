@@ -14,6 +14,7 @@ export class AppComponent {
   });
 
   error = '';
+  capError = '';
 
   constructor(private formBuilder: FormBuilder) {
     
@@ -24,6 +25,10 @@ export class AppComponent {
 
     if(!password || password.length < 8){
       this.error = 'Password should not be shorter than 8 characters';
+    }
+    const regex = /[A-Z]/;
+    if(password && !regex.test(password)){
+      this.capError = 'Password should contain at least one CAP';
     }
   }
 }
